@@ -1,9 +1,9 @@
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi'
 
-import './landing.css';
+import '../styles/landing.css';
 
-import logoImg from '../../images/logo.svg';
+import logoImg from '../images/logo.svg';
 
 const Landing: React.FC = () => {
   return (
