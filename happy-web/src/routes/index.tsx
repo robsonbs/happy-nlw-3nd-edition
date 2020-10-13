@@ -9,8 +9,10 @@ import OrphanagesMap from '../pages/OrphanagesMap';
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
-      <Route path="/" component={Landing} exact />
-      <Route path="/app" component={OrphanagesMap} exact />
+      <Switch>
+        <Route path="/" component={Landing} exact />
+        <Route path="/app" component={OrphanagesMap} exact />
+      </Switch>
     </BrowserRouter>);
 }
 
