@@ -87,6 +87,27 @@ form.create-orphanage-form .input-block .images-container {
   column-gap: 10px;
 }
 
+form.create-orphanage-form .input-block .images-container .image-item {
+  position: relative;
+}
+
+form.create-orphanage-form .input-block .images-container .image-item button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 40px;
+  border: 1px solid #D3E2E5;
+  box-sizing: border-box;
+  border-radius: 0px 20px;
+  background: #FFFFFF;
+  color: #FF669D;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 form.create-orphanage-form .input-block .images-container img {
   width: 100%;
   height: 96px;

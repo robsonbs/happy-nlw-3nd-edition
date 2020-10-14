@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { LeafletMouseEvent } from "leaflet";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import Sidebar from "../components/Sidebar";
@@ -35,14 +35,18 @@ export default function CreateOrphanage() {
     }
     const selectedImages = Array.from(event.target.files);
 
-    setImages(selectedImages);
+    setImages([...images, ...selectedImages]);
 
     const selectedImagesPreview = selectedImages.map(image => {
       return URL.createObjectURL(image);
     });
-    setPreviewImages(selectedImagesPreview);
-  }, []);
+    setPreviewImages([...previewImages, ...selectedImagesPreview]);
+  }, [images, previewImages]);
 
+  const handleRemoveImage = useCallback((index: number) => {
+    setImages(images.filter((image, idx) => index !== idx));
+    setPreviewImages(previewImages.filter((image, idx) => index !== idx));
+  }, [images, previewImages])
   const handleSubmit = useCallback((event: FormEvent) => {
     event.preventDefault();
     const { latitude, longitude } = position;
@@ -115,8 +119,10 @@ export default function CreateOrphanage() {
               <label htmlFor="images">Fotos</label>
 
               <div className="images-container">
-                {previewImages.map(image => {
-                  return (<img key={image} src={image} alt={name} />)
+                {previewImages.map((image, index) => {
+                  return (<div className="image-item"><img key={image} src={image} alt={name} />
+                    <button type="button" onClick={() => { handleRemoveImage(index); }}><FiX size={24} /></button>
+                  </div>)
                 })}
                 <label htmlFor="image[]" className="new-image">
                   <FiPlus size={24} color="#15b6d6" />
