@@ -1,7 +1,29 @@
 import express from 'express';
+import { getRepository } from 'typeorm';
 
-const app=express();
+import './database/connection';
+import Orphanage from './models/Orphanage';
 
-app.listen(3333,()=>{
-  console.log("server start on 3333!")
+const app = express();
+app.use(express.json())
+
+app.post('/orphanages', async (req, res) => {
+  const {
+    name, latitude, longitude, about, instructions, opening_hours, open_on_weekends
+  } = req.body;
+
+  const orphanagesRepository = getRepository(Orphanage);
+
+  const orphanage = orphanagesRepository.create({
+    name, latitude, longitude, about, instructions, opening_hours, open_on_weekends
+  });
+
+  await orphanagesRepository.save(orphanage);
+
+  res.status(201).json({ orphanage })
+})
+
+
+app.listen(3333, () => {
+  console.log("🚀server start on 3333!")
 })

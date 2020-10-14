@@ -364,3 +364,4 @@ tmp/*
 .env
 coverage
 ormconfig.json
+happy-server/src/database/database.sqlite
