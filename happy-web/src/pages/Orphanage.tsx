@@ -10,7 +10,7 @@ import mapIcon from "../utils/mapIcon";
 import api from "../services/api";
 
 interface Orphanage {
-  opening_on_weekends: any;
+  open_on_weekends: boolean;
   opening_hours: string;
   instructions: string;
   about: string;
@@ -97,9 +97,9 @@ export default function Orphanage() {
                 <FiClock size={32} color="#15B6D6" />
                 {orphanage.opening_hours}
               </div>
-              <div className={`open-on-weekends ${!orphanage.opening_on_weekends && 'not'}`}>
-                <FiInfo size={32} color={orphanage.opening_on_weekends ? "#39CC83" : "#FF669D"} />
-                {orphanage.opening_on_weekends ? 'A' : 'Não a'}tendemos <br />
+              <div className={`open-on-weekends ${!orphanage.open_on_weekends && 'not'}`}>
+                <FiInfo size={32} color={orphanage.open_on_weekends ? "#39CC83" : "#FF669D"} />
+                {orphanage.open_on_weekends ? 'A' : 'Não a'}tendemos <br />
                 fim de semana
               </div>
             </div>
