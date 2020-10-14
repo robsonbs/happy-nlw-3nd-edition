@@ -3,14 +3,44 @@ GET  http://localhost:3333/orphanages HTTP/1.1
 GET  http://localhost:3333/orphanages/1 HTTP/1.1
 ####
 POST http://localhost:3333/orphanages HTTP/1.1
-Content-Type: application/json
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
-{
-  "name":"Lar das meninas",
-  "latitude": -27.2104339,
-  "longitude":-49.629111,
-  "about":"sobre o ofranato",
-  "instructions":"venha nos visitar",
-  "opening_hours":"Das 8h as 17h",
-  "open_on_weekends":true
-}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Lar das meninas
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="latitude"
+
+-27.2104339
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="longitude"
+
+-49.629111
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="about"
+
+sobre o ofranato
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="instructions"
+
+venha nos visitar
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="opening_hours"
+
+das 8h as 18h
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="open_on_weekends"
+
+false
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="images"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="images"; filename="1 copy.png"
+Content-Type: image/png
+
+< ./1 copy.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
