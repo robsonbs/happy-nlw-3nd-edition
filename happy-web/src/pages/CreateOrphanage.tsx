@@ -7,7 +7,7 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 import Sidebar from '../components/Sidebar';
 import api from '../services/api';
 
-import '../styles/create-orphanage.css';
+import '../styles/pages/create-orphanage.css';
 import mapIcon from '../utils/mapIcon';
 
 const CreateOrphanage: React.FC = () => {

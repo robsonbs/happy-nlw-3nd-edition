@@ -4,7 +4,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FiClock, FiInfo } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 
-import '../styles/orphanage.css';
+import '../styles/pages/orphanage.css';
 import Sidebar from '../components/Sidebar';
 import mapIcon from '../utils/mapIcon';
 import api from '../services/api';
@@ -48,26 +48,28 @@ const Orphanage: React.FC = () => {
 
       <main>
         <div className="orphanage-details">
-          <img
-            src={orphanage.images[activeImageIndex].url}
-            alt={orphanage.name}
-          />
-
-          <div className="images">
-            {orphanage.images.map((image, index) => (
-              <button
-                key={image.url.substr(-10)}
-                className={index === activeImageIndex ? 'active' : ''}
-                type="button"
-                onClick={() => {
-                  setActiveImageIndex(index);
-                }}
-              >
-                <img src={image.url} alt="Lar das meninas" />
-              </button>
-            ))}
-          </div>
-
+          {orphanage.images.length && (
+            <>
+              <img
+                src={orphanage.images[activeImageIndex].url}
+                alt={orphanage.name}
+              />
+              <div className="images">
+                {orphanage.images.map((image, index) => (
+                  <button
+                    key={image.url.substr(-10)}
+                    className={index === activeImageIndex ? 'active' : ''}
+                    type="button"
+                    onClick={() => {
+                      setActiveImageIndex(index);
+                    }}
+                  >
+                    <img src={image.url} alt="Lar das meninas" />
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
           <div className="orphanage-details-content">
             <h1>{orphanage.name}</h1>
             <p>{orphanage.about}</p>

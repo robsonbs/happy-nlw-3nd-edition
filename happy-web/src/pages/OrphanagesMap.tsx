@@ -7,7 +7,7 @@ import api from '../services/api';
 import mapMarkerImg from '../images/map-marker.svg';
 import mapIcon from '../utils/mapIcon';
 
-import '../styles/orphanages-map.css';
+import '../styles/pages/orphanages-map.css';
 
 interface Orphanage {
   id: number;
