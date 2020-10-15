@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { LeafletMouseEvent } from 'leaflet';
 import { FiPlus, FiX } from 'react-icons/fi';
@@ -13,6 +19,10 @@ import mapIcon from '../utils/mapIcon';
 const CreateOrphanage: React.FC = () => {
   const history = useHistory();
 
+  const [initialPosition, setInitialPosition] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
 
   const [name, setName] = useState('');
@@ -22,6 +32,15 @@ const CreateOrphanage: React.FC = () => {
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(location => {
+      setInitialPosition({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    });
+  }, []);
 
   const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -94,7 +113,7 @@ const CreateOrphanage: React.FC = () => {
             <legend>Dados</legend>
 
             <Map
-              center={[-27.2092052, -49.6401092]}
+              center={[initialPosition.latitude, initialPosition.longitude]}
               style={{ width: '100%', height: 280 }}
               zoom={15}
               onclick={handleMapClick}

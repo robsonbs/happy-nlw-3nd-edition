@@ -18,6 +18,19 @@ interface Orphanage {
 
 const OrphanagesMap: React.FC = () => {
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+  const [initialPosition, setInitialPosition] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(location => {
+      setInitialPosition({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    });
+  }, []);
 
   useEffect(() => {
     api.get<Orphanage[]>('/orphanages').then(response => {
@@ -40,7 +53,7 @@ const OrphanagesMap: React.FC = () => {
       </aside>
 
       <Map
-        center={[-16.2418623, -47.9633124]}
+        center={[initialPosition.latitude, initialPosition.longitude]}
         zoom={15}
         style={{
           width: '100%',
