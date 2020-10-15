@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaWhatsapp } from "react-icons/fa";
-import { FiClock, FiInfo } from "react-icons/fi";
-import { Map, Marker, TileLayer } from "react-leaflet";
+import { FaWhatsapp } from 'react-icons/fa';
+import { FiClock, FiInfo } from 'react-icons/fi';
+import { Map, Marker, TileLayer } from 'react-leaflet';
 
 import '../styles/orphanage.css';
-import Sidebar from "../components/Sidebar";
-import mapIcon from "../utils/mapIcon";
-import api from "../services/api";
+import Sidebar from '../components/Sidebar';
+import mapIcon from '../utils/mapIcon';
+import api from '../services/api';
 
 interface Orphanage {
   open_on_weekends: boolean;
@@ -27,20 +27,19 @@ interface OrphanageParams {
   id: string;
 }
 
-export default function Orphanage() {
+const Orphanage: React.FC = () => {
   const params = useParams<OrphanageParams>();
   const [orphanage, setOrphanage] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
-    api.get<Orphanage>(`/orphanages/${params.id}`).then((response) => {
+    api.get<Orphanage>(`/orphanages/${params.id}`).then(response => {
       setOrphanage(response.data);
-      console.log(response.data);
-    })
-  }, [params.id])
+    });
+  }, [params.id]);
 
   if (!orphanage) {
-    return <p>Carregando...</p>
+    return <p>Carregando...</p>;
   }
 
   return (
@@ -49,15 +48,24 @@ export default function Orphanage() {
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name} />
+          <img
+            src={orphanage.images[activeImageIndex].url}
+            alt={orphanage.name}
+          />
 
           <div className="images">
-
-            {orphanage.images.map((image, index) =>
-              <button key={image.url.substr(-10)} className={index === activeImageIndex ? "active" : ""} type="button" onClick={() => { setActiveImageIndex(index) }}>
+            {orphanage.images.map((image, index) => (
+              <button
+                key={image.url.substr(-10)}
+                className={index === activeImageIndex ? 'active' : ''}
+                type="button"
+                onClick={() => {
+                  setActiveImageIndex(index);
+                }}
+              >
                 <img src={image.url} alt="Lar das meninas" />
               </button>
-            )}
+            ))}
           </div>
 
           <div className="orphanage-details-content">
@@ -77,13 +85,23 @@ export default function Orphanage() {
               >
                 <TileLayer
                   url="http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                //  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  //  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
-                <Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
+                <Marker
+                  interactive={false}
+                  icon={mapIcon}
+                  position={[orphanage.latitude, orphanage.longitude]}
+                />
               </Map>
 
               <footer>
-                <a target="_blank" rel="noopener noreferrer" href={`http://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`http://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}
+                >
+                  Ver rotas no Google Maps
+                </a>
               </footer>
             </div>
 
@@ -97,8 +115,15 @@ export default function Orphanage() {
                 <FiClock size={32} color="#15B6D6" />
                 {orphanage.opening_hours}
               </div>
-              <div className={`open-on-weekends ${!orphanage.open_on_weekends && 'not'}`}>
-                <FiInfo size={32} color={orphanage.open_on_weekends ? "#39CC83" : "#FF669D"} />
+              <div
+                className={`open-on-weekends ${
+                  !orphanage.open_on_weekends && 'not'
+                }`}
+              >
+                <FiInfo
+                  size={32}
+                  color={orphanage.open_on_weekends ? '#39CC83' : '#FF669D'}
+                />
                 {orphanage.open_on_weekends ? 'A' : 'Não a'}tendemos <br />
                 fim de semana
               </div>
@@ -113,4 +138,6 @@ export default function Orphanage() {
       </main>
     </div>
   );
-}
+};
+
+export default Orphanage;

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import { FiArrowRight } from 'react-icons/fi'
+import { Link } from 'react-router-dom';
+import { FiArrowRight } from 'react-icons/fi';
 
 import '../styles/landing.css';
 
@@ -19,10 +19,12 @@ const Landing: React.FC = () => {
           <strong>Luziânia</strong>
           <span>Goiás</span>
         </div>
-        <Link to="/app" className="enter-app"><FiArrowRight size={32}/></Link>
+        <Link to="/app" className="enter-app">
+          <FiArrowRight size={32} />
+        </Link>
       </div>
     </div>
   );
-}
+};
 
 export default Landing;
