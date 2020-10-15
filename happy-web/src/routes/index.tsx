@@ -6,18 +6,17 @@ import Landing from '../pages/Landing';
 import Orphanage from '../pages/Orphanage';
 import OrphanagesMap from '../pages/OrphanagesMap';
 
-// import { Container } from './styles';
-
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Landing} exact />
-        <Route path="/app" component={OrphanagesMap}/>
-        <Route path="/orphanages/create" component={CreateOrphanage}/>
-        <Route path="/orphanages/:id" component={Orphanage}/>
+        <Route path="/app" component={OrphanagesMap} />
+        <Route path="/orphanages/create" component={CreateOrphanage} />
+        <Route path="/orphanages/:id" component={Orphanage} />
       </Switch>
-    </BrowserRouter>);
-}
+    </BrowserRouter>
+  );
+};
 
 export default Routes;
