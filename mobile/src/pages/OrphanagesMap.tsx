@@ -23,8 +23,8 @@ export default function OrphanagesMap() {
 
   useFocusEffect(
     useCallback(() => {
-      api.get<Orphanage[]>('orphanages').then(response => {
-        setOrphanages(response.data);
+      api.get<Orphanage[]>('orphanages').then(({ data }: any) => {
+        setOrphanages(data);
       });
     }, [])
   );
