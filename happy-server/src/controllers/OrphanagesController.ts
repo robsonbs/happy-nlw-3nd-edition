@@ -1,18 +1,18 @@
 import * as Yup from 'yup';
-import { request, Request, Response } from "express";
+import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 import orphanageView from '../views/orphanage_view';
 
 export default {
-  async index(req: Request, res: Response) {
+  async index(req: Request, res: Response): Promise<Response> {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanages = await orphanagesRepository.find();
 
     return res.json(orphanageView.renderMany(orphanages));
   },
-  async show(req: Request, res: Response) {
+  async show(req: Request, res: Response): Promise<Response> {
     const orphanagesRepository = getRepository(Orphanage);
     const { id } = req.params;
 
@@ -20,7 +20,7 @@ export default {
 
     return res.json(orphanageView.render(orphanage));
   },
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<Response> {
     const {
       name,
       latitude,
@@ -28,13 +28,15 @@ export default {
       about,
       instructions,
       opening_hours,
-      open_on_weekends
+      open_on_weekends,
     } = req.body;
 
     const orphanagesRepository = getRepository(Orphanage);
 
     const requestImages = req.files as Express.Multer.File[];
-    const images = requestImages.map(image => { return { path: image.filename } })
+    const images = requestImages.map(image => {
+      return { path: image.filename };
+    });
 
     const data = {
       name,
@@ -44,7 +46,7 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends: open_on_weekends === 'true',
-      images
+      images,
     };
 
     const schema = Yup.object().shape({
@@ -57,19 +59,19 @@ export default {
       open_on_weekends: Yup.boolean().required(),
       images: Yup.array(
         Yup.object().shape({
-          path: Yup.string().required()
-        })
-      )
+          path: Yup.string().required(),
+        }),
+      ),
     });
 
     await schema.validate(data, {
-      abortEarly: false
+      abortEarly: false,
     });
 
     const orphanage = orphanagesRepository.create(data);
 
     await orphanagesRepository.save(orphanage);
 
-    return res.status(201).json({ orphanage })
-  }
-}
+    return res.status(201).json({ orphanage });
+  },
+};
