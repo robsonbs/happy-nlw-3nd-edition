@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import ColumnNumericTransformer from '../utils/transformers/ColumnNumericTransformer';
 import Image from './Image';
 
 @Entity('orphanages')
@@ -9,10 +10,10 @@ export default class Orphanage {
   @Column()
   name: string;
 
-  @Column()
+  @Column({transformer: new ColumnNumericTransformer()})
   latitude: number;
 
-  @Column()
+  @Column({transformer: new ColumnNumericTransformer()})
   longitude: number;
 
   @Column()
