@@ -10,10 +10,10 @@ export default class Orphanage {
   @Column()
   name: string;
 
-  @Column({transformer: new ColumnNumericTransformer()})
+  @Column({ transformer: new ColumnNumericTransformer() })
   latitude: number;
 
-  @Column({transformer: new ColumnNumericTransformer()})
+  @Column({ transformer: new ColumnNumericTransformer() })
   longitude: number;
 
   @Column()

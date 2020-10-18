@@ -1,5 +1,6 @@
 import { ErrorRequestHandler, Response } from 'express';
 import { ValidationError } from 'yup';
+import AppError from './AppError';
 
 interface IValidationErrors {
   [key: string]: string[];
@@ -19,6 +20,12 @@ const errorHandler: ErrorRequestHandler = (
     });
 
     return response.status(400).json({ message: 'Validation fails', errors });
+  }
+  if (error instanceof AppError) {
+    return response.status(400).json({
+      message: error.message,
+      status: error.statusCode,
+    });
   }
 
   // eslint-disable-next-line no-console

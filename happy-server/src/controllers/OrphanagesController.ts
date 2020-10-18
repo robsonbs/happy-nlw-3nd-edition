@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import fs from 'fs';
+import path from 'path';
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
@@ -64,10 +66,20 @@ export default {
       ),
     });
 
-    await schema.validate(data, {
-      abortEarly: false,
-    });
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      // se o erro lançado pela validação for capturado
+      images.forEach(async ({ path: file }) => {
+        // percorro a lista de imagens e as excluo
+        const filePath = path.join(__dirname, '..', '..', 'uploads', file);
+        await fs.promises.unlink(filePath);
+      });
 
+      throw err; // emito a exceção para continuar o fluxo de tratamento pelo errorHandler
+    }
     const orphanage = orphanagesRepository.create(data);
 
     await orphanagesRepository.save(orphanage);

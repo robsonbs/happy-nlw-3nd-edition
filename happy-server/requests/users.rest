@@ -1,0 +1,17 @@
+POST http://localhost:3333/users HTTP/1.1
+content-type: application/json
+
+{
+  "name":"Robson",
+  "email":"robson@example.com",
+  "password":"password"
+}
+
+################################################################
+POST http://localhost:3333/sessions HTTP/1.1
+content-type: application/json
+
+{
+  "email":"robson@example.com",
+  "password":"password"
+}
