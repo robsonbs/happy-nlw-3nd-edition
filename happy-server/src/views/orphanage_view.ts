@@ -10,6 +10,7 @@ interface IOrphanageView {
   instructions: string;
   opening_hours: string;
   open_on_weekends: boolean;
+  confirmed: boolean;
   images: Array<{
     id: number;
     url: string;
@@ -27,6 +28,7 @@ export default {
       instructions: orphanage.instructions,
       opening_hours: orphanage.opening_hours,
       open_on_weekends: orphanage.open_on_weekends,
+      confirmed: orphanage.confirmed,
       images: imageView.renderMany(orphanage.images),
     };
   },
