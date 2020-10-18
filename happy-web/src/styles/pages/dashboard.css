@@ -1,0 +1,90 @@
+.page-dashboard {
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-dashboard>div {
+  padding-left: 120px;
+}
+
+.page-dashboard div>main {
+  padding: 64px 110px;
+}
+
+.page-dashboard .header-dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-dashboard .header-dashboard {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #D3E2E5;
+}
+
+.page-dashboard .header-dashboard h2 {
+  color: #4D6F80;
+  font-size: 1.8em;
+}
+
+.page-dashboard .header-dashboard span {
+  color: #8FA7B2;
+  font-size: 1em;
+}
+
+.orphanage-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 32px;
+  row-gap: 32px;
+  margin-top: 40px;
+}
+
+.orphanage-card .button-group {
+  display: flex;
+}
+
+.orphanage-card .button-group button {
+  width: 48px;
+  height: 48px;
+  left: 616px;
+  top: 406px;
+  background: #EBF2F5;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.orphanage-card .button-group button+button {
+  margin-left: 8px;
+}
+
+.orphanage-card {
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.orphanage-card .leaflet-container {
+  border-radius: 20px;
+}
+
+.orphanage-card .orphanage-card-details {
+  color: #4D6F80;
+  font-weight: 700;
+  font-size: 1.35em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px 32px;
+}
+
+@media(max-width: 1441px) {
+  .orphanage-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 768px) {
+  .orphanage-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

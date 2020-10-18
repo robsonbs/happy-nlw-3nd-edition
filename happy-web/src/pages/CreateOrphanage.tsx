@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { LeafletMouseEvent } from 'leaflet';
 import { FiPlus, FiX } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
@@ -18,6 +18,7 @@ import mapIcon from '../utils/mapIcon';
 
 const CreateOrphanage: React.FC = () => {
   const history = useHistory();
+  const { id } = useParams<{ id?: string }>();
 
   const [initialPosition, setInitialPosition] = useState({
     latitude: 0,
@@ -32,6 +33,7 @@ const CreateOrphanage: React.FC = () => {
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [isConrfirmation, setIsConrfirmation] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -41,6 +43,28 @@ const CreateOrphanage: React.FC = () => {
       });
     });
   }, []);
+  useEffect(() => {
+    const locationVar = document.location;
+    if (id) {
+      api.get(`/orphanages/${id}`).then(({ data }) => {
+        setPosition({ latitude: data.latitude, longitude: data.longitude });
+        setInitialPosition({
+          latitude: data.latitude,
+          longitude: data.longitude,
+        });
+        setAbout(data.about);
+        setImages(data.images);
+        setName(data.name);
+        setOpenOnWeekends(data.open_on_weekends);
+        setOpeningHours(data.opening_hours);
+        setInstructions(data.instructions);
+        setPreviewImages(
+          data.images.map((image: { id: number; url: string }) => image.url),
+        );
+        console.log({ data, locationVar });
+      });
+    }
+  }, [id]);
 
   const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;

@@ -24,12 +24,14 @@ const OrphanagesMap: React.FC = () => {
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(location => {
-      setInitialPosition({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(location => {
+        setInitialPosition({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
       });
-    });
+    }
   }, []);
 
   useEffect(() => {
