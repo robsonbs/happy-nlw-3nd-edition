@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiArrowLeft, FiCheck, FiEye } from 'react-icons/fi';
+import { FiArrowLeft, FiCheck, FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import '../styles/pages/reset-password.css';
@@ -7,9 +7,10 @@ import '../styles/pages/reset-password.css';
 import logoImg from '../images/logo-vet.svg';
 
 const ResetPassword: React.FC = () => {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [noMaskedPass, setNoMaskedPass] = useState(false);
+  const [noMaskedPassConfirm, setNoMaskedPassConfirm] = useState(false);
   const [isFilled, setFilled] = useState(false);
 
   return (
@@ -28,28 +29,41 @@ const ResetPassword: React.FC = () => {
           <FiArrowLeft size={32} />
         </Link>
         <form action="">
-          <h2>Esqueci a senha</h2>
+          <h2>Redefinir a senha</h2>
           <p>Escolha uma nova senha para você acessar o dashboard do Happy</p>
           <label>
             <span>Nova senha</span>
             <div className="person-input">
               <input
-                type="text"
-                name="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                type={noMaskedPass ? 'text' : 'password'}
+                name="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
-              <FiEye />
+              <button
+                type="button"
+                onClick={() => setNoMaskedPass(!noMaskedPass)}
+              >
+                {noMaskedPass ? <FiEyeOff color="#15C3D6" /> : <FiEye />}
+              </button>
             </div>
           </label>
           <label>
             <span>Nova senha</span>
-            <input
-              type="text"
-              name="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
+            <div className="person-input">
+              <input
+                type={noMaskedPassConfirm ? 'text' : 'password'}
+                name="email"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => setNoMaskedPassConfirm(!noMaskedPassConfirm)}
+              >
+                {noMaskedPassConfirm ? <FiEyeOff color="#15C3D6" /> : <FiEye />}
+              </button>
+            </div>
           </label>
           <button
             className={`button ${isFilled && 'active'}`}
