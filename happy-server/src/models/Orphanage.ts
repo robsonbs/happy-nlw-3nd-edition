@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import ColumnNumericTransformer from '../utils/transformers/ColumnNumericTransformer';
 import Image from './Image';
 
@@ -28,12 +35,18 @@ export default class Orphanage {
   @Column()
   open_on_weekends: boolean;
 
-  @Column()
-  confirmed: boolean;
+  @Column({ default: false })
+  status: boolean;
 
   @OneToMany(() => Image, image => image.orphanage, {
     cascade: ['insert', 'update'],
     eager: true,
   })
   images: Image[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }

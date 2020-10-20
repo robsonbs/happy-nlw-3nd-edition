@@ -6,14 +6,14 @@ export default class AddColumnConfirmedInOrphanage1603045324863
     await queryRunner.addColumn(
       'orphanages',
       new TableColumn({
-        name: 'confirmed',
-        default: false,
+        name: 'status',
         type: 'boolean',
+        default: 'false',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('orphanages', 'confirmed');
+    await queryRunner.dropColumn('orphanages', 'status');
   }
 }
