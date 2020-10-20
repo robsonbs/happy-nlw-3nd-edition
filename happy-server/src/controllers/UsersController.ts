@@ -56,7 +56,7 @@ export default {
   },
   async login(req: Request, res: Response): Promise<Response> {
     const usersRepository = getRepository(User);
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
     // verificar se existe um usuário com email
     const user = await usersRepository.findOne({ where: { email } });

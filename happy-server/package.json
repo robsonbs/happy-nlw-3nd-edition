@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "eslint": "eslint --fix src --ext .ts,.tsx",
     "seed:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -c seed -n ",
     "seed:run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -c seed",
     "seed:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -c seed"
