@@ -25,10 +25,10 @@
     "sourceType": "module"
   },
   "plugins": [
+    "@typescript-eslint",
     "react",
     "react-hooks",
-    "prettier",
-    "@typescript-eslint"
+    "prettier"
   ],
   "rules": {
     "camelcase": "off",
@@ -37,6 +37,10 @@
           "some": [ "nesting", "id" ]
       }
     }],
+    "import/prefer-default-export": "off",
+    "no-unused-expressions": "off",
+    "prettier/prettier": "error",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [
       1,
       {
@@ -45,6 +49,10 @@
         ]
       }
     ],
+    "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "space-before-function-paren": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

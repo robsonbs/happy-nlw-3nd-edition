@@ -29,7 +29,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     api.get('/orphanages').then(({ data }) => {
       setOrphanages(data);
-      console.log(data);
     });
   }, []);
 
@@ -103,7 +102,7 @@ const Dashboard: React.FC = () => {
         </main>
       </div>
     );
-  }, [switchMenu, orphanages]);
+  }, [switchMenu, orphanages, history]);
 
   const handleSwitch = (state: boolean) => {
     setSwitchMenu(state);

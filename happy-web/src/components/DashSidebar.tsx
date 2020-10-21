@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 
 import { FiInfo, FiMapPin, FiPower } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import { useAuth } from '../contexts/auth';
 
 import mapMarkerImg from '../images/map-marker.svg';
 import '../styles/app-dashsidebar.css';
@@ -14,7 +14,7 @@ const DashSidebar: React.FC<IDashSidebarProps> = ({
   switchMenu,
   setSwitchMenu,
 }: IDashSidebarProps) => {
-  const { goBack } = useHistory();
+  const { signOut } = useAuth();
 
   return (
     <aside className="app-sidebar">
@@ -37,7 +37,7 @@ const DashSidebar: React.FC<IDashSidebarProps> = ({
           <span className="signal-notification" />
         </button>
       </div>
-      <button type="button" onClick={goBack}>
+      <button type="button" onClick={signOut}>
         <FiPower size={24} color="#FFF" />
       </button>
     </aside>

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactChildren, ReactNode } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import mapIcon from '../utils/mapIcon';
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FiArrowLeft, FiCheck } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import '../styles/pages/forget-password.css';
@@ -8,9 +8,15 @@ import logoImg from '../images/logo-vet.svg';
 
 const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
   const [isFilled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (email.length) {
+      setFilled(true);
+      return;
+    }
+    setFilled(false);
+  }, [email.length]);
 
   return (
     <div id="page-forget-password">
@@ -23,30 +29,32 @@ const ForgetPassword: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="signin">
+      <div className="sign-in">
         <Link to="/login">
           <FiArrowLeft size={32} />
         </Link>
-        <form action="">
-          <h2>Esqueci a senha</h2>
-          <p>Sua definição de senha será enviada para o e-mail cadastrado</p>
-          <label>
-            <span>E-mail</span>
-            <input
-              type="text"
-              name="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </label>
-          <button
-            className={`button ${isFilled && 'active'}`}
-            type="submit"
-            disabled={!isFilled}
-          >
-            Entrar
-          </button>
-        </form>
+        <div className="form-container">
+          <form action="">
+            <h2>Esqueci a senha</h2>
+            <p>Sua definição de senha será enviada para o e-mail cadastrado</p>
+            <label>
+              <span>E-mail</span>
+              <input
+                type="text"
+                name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </label>
+            <button
+              className={`button ${isFilled && 'active'}`}
+              type="submit"
+              disabled={!isFilled}
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
