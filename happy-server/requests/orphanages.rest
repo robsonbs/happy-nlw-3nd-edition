@@ -4,6 +4,8 @@ GET  http://localhost:3333/orphanages/1 HTTP/1.1
 ####
 POST http://localhost:3333/orphanages HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDMzMzI1MjAsImV4cCI6MTYwMzQxODkyMCwic3ViIjoiMSJ9.-85PWyDEaFigpwDNt7W0nQs8VvOQhT2GTlL-yGOeY6w
+
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name"
@@ -37,16 +39,16 @@ Segunda à Sexta
 Content-Disposition: form-data; name="open_on_weekends"
 
 false
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1.png"
-Content-Type: image/png
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1.png"
+# Content-Type: image/png
 
-< ./0x0crop60-20180818_5b7891a2a3a91.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1 copy.png"
-Content-Type: image/png
+# < ./0x0crop60-20180818_5b7891a2a3a91.jpg
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1 copy.png"
+# Content-Type: image/png
 
-< ./0x0crop60-20180818_5b7891b6bd33d.jpg
+# < ./0x0crop60-20180818_5b7891b6bd33d.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ####
 POST http://localhost:3333/orphanages HTTP/1.1
@@ -80,16 +82,16 @@ Segunda à Sexta <br/> 8h às 18h
 Content-Disposition: form-data; name="open_on_weekends"
 
 false
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1.png"
-Content-Type: image/png
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1.png"
+# Content-Type: image/png
 
-< ./casa-da-crianca-de-velho-orfanato-a-creche-e-centro-de-convivencia-5af4a78a3401a.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1 copy.png"
-Content-Type: image/png
+# < ./casa-da-crianca-de-velho-orfanato-a-creche-e-centro-de-convivencia-5af4a78a3401a.jpg
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1 copy.png"
+# Content-Type: image/png
 
-< ./0x0crop60-20180818_5b7891b6bd33d.jpg
+# < ./0x0crop60-20180818_5b7891b6bd33d.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ####
 POST http://localhost:3333/orphanages HTTP/1.1
@@ -124,14 +126,14 @@ Segunda à Sexta
 Content-Disposition: form-data; name="open_on_weekends"
 
 false
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1.png"
-Content-Type: image/png
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1.png"
+# Content-Type: image/png
 
-< ./FS101 14 final.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="images"; filename="1 copy.png"
-Content-Type: image/png
+# < ./FS101 14 final.jpg
+# ------WebKitFormBoundary7MA4YWxkTrZu0gW
+# Content-Disposition: form-data; name="images"; filename="1 copy.png"
+# Content-Type: image/png
 
-< ./0x0crop60-20180818_5b7891a2a3a91.jpg
+# < ./0x0crop60-20180818_5b7891a2a3a91.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

@@ -5,6 +5,7 @@ import api from '../services/api';
 interface SignInCredentials {
   email: string;
   password: string;
+  remember?: boolean;
 }
 
 interface AuthContextState {
@@ -22,8 +23,14 @@ const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 // eslint-disable-next-line react/prop-types
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = sessionStorage.getItem('@Happy:token');
-    const user = sessionStorage.getItem('@Happy:user');
+    let token = sessionStorage.getItem('@Happy:token');
+    let user = sessionStorage.getItem('@Happy:user');
+
+    if (!token || !user) {
+      token = localStorage.getItem('@Happy:token');
+      user = localStorage.getItem('@Happy:user');
+    }
+
     if (user && token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
@@ -34,7 +41,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const history = useHistory();
 
   const signIn = useCallback(
-    async ({ email, password }) => {
+    async ({ email, password, remember = false }) => {
       const response = await api.post<AuthState>('/sessions', {
         email,
         password,
@@ -44,7 +51,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
       sessionStorage.setItem('@Happy:user', JSON.stringify(user));
       sessionStorage.setItem('@Happy:token', token);
-
+      if (remember) {
+        localStorage.setItem('@Happy:token', token);
+        localStorage.setItem('@Happy:user', JSON.stringify(user));
+      }
       api.defaults.headers.authorization = `Bearer ${token}`;
       setData({ token, user });
       history.push('/dashboard');
@@ -54,8 +64,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(() => {
     sessionStorage.clear();
+    localStorage.removeItem('@Happy:token');
+    localStorage.removeItem('@Happy:user');
     history.push('/');
-
+    delete api.defaults.headers.authorization;
     setData({} as AuthState);
   }, [history]);
 

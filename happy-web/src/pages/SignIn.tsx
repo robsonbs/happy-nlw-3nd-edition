@@ -27,10 +27,10 @@ const SignIn: React.FC = () => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (isFilled) {
-        signIn({ email, password });
+        signIn({ email, password, remember });
       }
     },
-    [password, email, isFilled, signIn],
+    [password, email, remember, isFilled, signIn],
   );
 
   return (
