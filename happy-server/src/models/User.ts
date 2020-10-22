@@ -20,6 +20,15 @@ export default class User {
   @Column()
   password?: string;
 
+  @Column()
+  last_login?: Date;
+
+  @Column()
+  forgot_token?: string;
+
+  @Column()
+  expires_token?: Date;
+
   @CreateDateColumn()
   created_at: Date;
 

@@ -17,7 +17,9 @@ routes
 
 routes.post('/users', UsersController.create);
 
-routes.post('/sessions', UsersController.login);
+routes
+  .post('/sessions', UsersController.login)
+  .post('/forgot-password', UsersController.forgotPassword);
 routes.use(ensureAuthenticated);
 routes.post('/orphanages', upload.array('images'), OrphanagesController.create);
 

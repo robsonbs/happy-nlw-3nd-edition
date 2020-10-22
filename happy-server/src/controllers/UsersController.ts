@@ -3,21 +3,13 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import crypto from 'crypto';
 import auth from '../config/auth';
 import AppError from '../errors/AppError';
 import User from '../models/User';
+import userView from '../views/users_view';
 
 export default {
-  /**
-   * CRIAR UM NOVO USUÁRIO
-   *
-   * Um usuário com nome, email e senha criptografada
-   *
-   * RN {
-   *      usuários possuem email único;
-   *
-   *
-   */
   async create(req: Request, res: Response): Promise<Response> {
     const usersRepository = getRepository(User);
     const { name, email, password } = req.body;
@@ -52,7 +44,7 @@ export default {
 
     await usersRepository.save(user);
 
-    return res.status(201).json({ user });
+    return res.status(201).json({ user: userView.render(user) });
   },
   async login(req: Request, res: Response): Promise<Response> {
     const usersRepository = getRepository(User);
@@ -83,6 +75,39 @@ export default {
       expiresIn,
     });
 
-    return res.status(200).json({ user, token });
+    return res.status(200).json({ user: userView.render(user), token });
+  },
+  async forgotPassword(req: Request, res: Response): Promise<Response> {
+    try {
+      /**
+       * recuperar senha:
+       * - encontrar usuário
+       * - gerar token
+       * - enviar email
+       * - retornar
+       */
+      const usersRepository = getRepository(User);
+      const { email } = req.body;
+
+      // verificar se existe um usuário com email
+      const user = await usersRepository.findOne({ where: { email } });
+
+      if (!user) {
+        throw new AppError('User not found', 401);
+      }
+
+      const token = crypto.randomBytes(32).toString('hex');
+
+      const expiresDate = new Date();
+      expiresDate.setHours(expiresDate.getHours() + 12);
+      user.forgot_token = token;
+      user.expires_token = expiresDate;
+
+      await usersRepository.save(user);
+
+      return res.json({ message: 'Um e-mail foi enviado para sua ' });
+    } catch {
+      throw new AppError('Error in forgot password!', 500);
+    }
   },
 };

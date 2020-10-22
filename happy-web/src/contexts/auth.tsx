@@ -23,12 +23,12 @@ const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 // eslint-disable-next-line react/prop-types
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    let token = sessionStorage.getItem('@Happy:token');
-    let user = sessionStorage.getItem('@Happy:user');
+    let token = sessionStorage.getItem(`@${process.env.REACT_APP_NAME}:token`);
+    let user = sessionStorage.getItem(`@${process.env.REACT_APP_NAME}:user`);
 
     if (!token || !user) {
-      token = localStorage.getItem('@Happy:token');
-      user = localStorage.getItem('@Happy:user');
+      token = localStorage.getItem(`@${process.env.REACT_APP_NAME}:token`);
+      user = localStorage.getItem(`@${process.env.REACT_APP_NAME}:user`);
     }
 
     if (user && token) {
@@ -49,11 +49,17 @@ const AuthProvider: React.FC = ({ children }) => {
 
       const { token, user } = response.data;
 
-      sessionStorage.setItem('@Happy:user', JSON.stringify(user));
-      sessionStorage.setItem('@Happy:token', token);
+      sessionStorage.setItem(
+        `@${process.env.REACT_APP_NAME}:user`,
+        JSON.stringify(user),
+      );
+      sessionStorage.setItem(`@${process.env.REACT_APP_NAME}:token`, token);
       if (remember) {
-        localStorage.setItem('@Happy:token', token);
-        localStorage.setItem('@Happy:user', JSON.stringify(user));
+        localStorage.setItem(`@${process.env.REACT_APP_NAME}:token`, token);
+        localStorage.setItem(
+          `@${process.env.REACT_APP_NAME}:user`,
+          JSON.stringify(user),
+        );
       }
       api.defaults.headers.authorization = `Bearer ${token}`;
       setData({ token, user });
@@ -64,8 +70,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(() => {
     sessionStorage.clear();
-    localStorage.removeItem('@Happy:token');
-    localStorage.removeItem('@Happy:user');
+    localStorage.removeItem(`@${process.env.REACT_APP_NAME}:token`);
+    localStorage.removeItem(`@${process.env.REACT_APP_NAME}:user`);
     history.push('/');
     delete api.defaults.headers.authorization;
     setData({} as AuthState);

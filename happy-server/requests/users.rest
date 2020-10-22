@@ -15,3 +15,11 @@ content-type: application/json
   "email":"robson@example.com",
   "password":"password"
 }
+
+################################################################
+POST http://localhost:3333/forgot-password HTTP/1.1
+content-type: application/json
+
+{
+  "email":"robson@example.com"
+}
